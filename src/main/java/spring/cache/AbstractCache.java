@@ -4,12 +4,12 @@ import com.google.common.collect.ImmutableList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 
 import javax.annotation.Nonnull;
+import javax.annotation.PostConstruct;
 import javax.annotation.concurrent.ThreadSafe;
 
 import static util.Restrictions.ifNullFail;
@@ -21,7 +21,7 @@ import static util.Restrictions.ifNullFail;
  */
 @ThreadSafe
 @Repository
-public abstract class AbstractCache<T> implements ICache<T>, InitializingBean {
+public abstract class AbstractCache<T> implements ICache<T> {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractCache.class);
 
@@ -40,11 +40,11 @@ public abstract class AbstractCache<T> implements ICache<T>, InitializingBean {
         return entitiesCache;
     }
 
-    @SuppressWarnings({"ProhibitedExceptionDeclared", "OverlyBroadThrowsClause"}) // as in Spring's interface
-    @Override
-    public void afterPropertiesSet() throws Exception {
+    @PostConstruct
+    private void init() { // don't disclose it in a multi-threading context
         if (entitiesCache == null) {
             entitiesCache = ImmutableList.copyOf(getAllData());
+            logger.info("{} loaded, {} entities.", name, entitiesCache.size());
         }
         check();
     }
@@ -53,8 +53,6 @@ public abstract class AbstractCache<T> implements ICache<T>, InitializingBean {
         if (entitiesCache == null) {
             logger.error("{} not loaded!", name);
             throw new IllegalStateException(name + " cache not loaded!");
-        } else {
-            logger.info("{} loaded, {} entities.", name, entitiesCache.size());
         }
     }
 
