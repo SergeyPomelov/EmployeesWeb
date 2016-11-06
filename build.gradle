@@ -1,0 +1,63 @@
+apply plugin: "java"                // main core tasks as compilation
+apply plugin: "war"                 // core web application building tasks
+apply plugin: "idea"                // add eclipse's if need
+apply plugin: "org.akhikhl.gretty"  // one click deploy plugin
+
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = sourceCompatibility
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.akhikhl.gretty:gretty:+"
+    }
+}
+
+gretty {
+    port = 8080 // 8080 indeed a default port, buy you might want to change it here
+    contextPath = ""
+    servletContainer = "tomcat8"
+}
+
+dependencies {
+
+    final String springVersion = "4.3.3.RELEASE"
+    final String jacksonVersion = "2.8.+"
+
+    compile "org.springframework:spring-webmvc:${springVersion}"    // Spring MVC, main back-end
+    compile "javax.servlet:jstl:1.2"                                // JSP Tag Library, needed for SpringMVC
+
+    // json processing & data binding for spring (api request/responses format)
+    compile "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
+    compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+
+    compile "org.springframework:spring-jdbc:${springVersion}"      // jdbc-spring configs
+    compile "org.hsqldb:hsqldb:2.3.+"                               // in-memory DB
+
+    // JPA part from the spring-data
+    compile "org.springframework.data:spring-data-jpa:1.10.4.RELEASE"
+    compile "org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.0.Final"
+
+    compile "org.slf4j:slf4j-api:1.7.+"                             // logging-api
+    compile "ch.qos.logback:logback-classic:1.1.+"                  // logger
+
+    compile "com.google.code.findbugs:jsr305:3.0.+"                 // QA annotations
+    compile "com.google.guava:guava:19.0"                           // commons lib
+
+    providedCompile "javax.servlet:javax.servlet-api:3.1.+"         // provided by servlet container
+
+    testCompile "junit:junit:4.12"                                  // main tests lib
+    testCompile "org.mockito:mockito-core:2.2.9"                    // mock framework
+    testCompile "org.springframework:spring-test:${springVersion}"  // spring context while testing
+    testCompile "com.jayway.jsonpath:json-path:2.2.0"               // json matchers for testing
+
+}
