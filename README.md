@@ -1,8 +1,5 @@
 ## Employees page.
-ExtJS + SpringMVC web application.
-
-#### Task's description.
-Hidden because a public code repo. See it in mails.
+ExtJS + SpringMVC web application showcase.
 
 ### Running via Gradle:
 Only [gradle 3.1][gradle], [Java 8][java] and net needed
@@ -66,7 +63,6 @@ follow the gradle unified way above.
 - **JSON** - supported by Jackson 2.8, tested by Jsonpath 2.2
 
 #### Miscellaneous
-The author asks for review and greatly appreciate any feedback.
 Project's Java style - GoogleSS, JS - IDEA default + HintJS & LintJS.
 IDE - IDEA 16.
 
