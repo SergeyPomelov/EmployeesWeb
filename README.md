@@ -1,6 +1,12 @@
 ## Employees page.
 ExtJS + SpringMVC web application showcase.
 
+![Repository Top Language](https://img.shields.io/github/languages/top/SergeyPomelov/EmployeesWeb)
+![Languages](https://img.shields.io/github/languages/count/SergeyPomelov/EmployeesWeb)
+![Github Repository Size](https://img.shields.io/github/repo-size/SergeyPomelov/EmployeesWeb)
+![Github Open Issues](https://img.shields.io/github/issues/SergeyPomelov/EmployeesWeb)
+![License](https://img.shields.io/badge/license-MIT-green)
+
 ### Running via Gradle:
 Only [gradle 3.1][gradle], [Java 8][java] and net needed
 for build & run. Repositories with libs for build tool and some ExtJS's stuff for runtime are online, they
